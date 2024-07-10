@@ -17,7 +17,7 @@ export default function ProductPage ({params}) {
             key: '_id',
             value: slug,
           }),
-        });s
+        });
         const jsonData = await response.json();
         
         setData(jsonData[0])
