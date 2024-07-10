@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 export const metadata = {
-  title: "Wavecart - buy your dream",
+  title: "Wavecart - buy your dream product",
   description: "Wavecart is online shoping app that under development , so don't worry we are trying our best to add your dream products ",
   icons: {icon:'/logo.jpg'}
 };
