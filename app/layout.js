@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
 
     <Navbar></Navbar>
       <div className="flex w-full" style={{ height: "88vh" }}>
-        <div className=" w-full overflow-y-scroll">
+        <div className=" w-full z-1 overflow-y-scroll">
           {children}
           <Footer></Footer>
         </div>

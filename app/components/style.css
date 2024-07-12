@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* #account-button:hover #menu-option{
+    z-index: 10;
+  }
+   */

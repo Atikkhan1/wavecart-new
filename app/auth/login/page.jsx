@@ -1,6 +1,31 @@
-import React from 'react'
+'use client'
 
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 const login = () => {
+    const router = useRouter()
+    const [errormsg,setErrormsg] = useState('')
+
+    let details = []
+
+
+    const handleLogin = async() => {
+        const response = await fetch(`/api/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: details[0],
+            password: details[1],
+          }),
+        });
+        const jsonData = await response.json();
+        setErrormsg(jsonData)
+        if (jsonData == true){
+            router.push('/account')
+        }
+    }
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
         <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -49,17 +74,19 @@ const login = () => {
                         <div className="mx-auto max-w-xs">
                         <form>
 
-                            <input
+                            <input onChange={(e)=>{details[0] = e.target.value }}
                                 className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                                type="email" placeholder="Email" />
-                            <input
+                                type="email" placeholder="Email" autoComplete='email'/>
+                            <input onChange={(e)=>{details[1] = e.target.value}}
                                 className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                                type="password" placeholder="Password" />
+                                type="password" placeholder="Password" autoComplete='current-password'/>
                                     </form>
-                            <button
-                                className="mt-5 tracking-wide font-semibold bg-green-400 text-white-500 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                                <svg className="w-6 h-6 -ml-2 mr-2" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+
+                            <p className='flex mt-2 justify-center text-red-500'>{errormsg}</p>
+                            <button onClick={()=>{handleLogin()}}
+                                className="mt-2 tracking-wide font-semibold bg-green-400 text-white-500 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                                <svg className="w-6 h-6 -ml-2 mr-2" fill="none" stroke="currentColor" strokeWidth="2"
+                                    strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
                                     <circle cx="8.5" cy="7" r="4" />
                                     <path d="M20 8v6M23 11h-6" />
@@ -69,7 +96,7 @@ const login = () => {
                                 </span>
                             </button>
                             <p className="mt-6 text-xs text-gray-600 text-center">
-                                I agree to abide by Cartesian Kinetics <></> 
+                                I agree to abide by Wavecart <></> 
                                 <a href="#" className="border-b border-gray-500 border-dotted">
                                     Terms of Service <></>
                                 </a>

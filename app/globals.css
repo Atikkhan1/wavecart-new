@@ -17,9 +17,6 @@ body {
 
 }
 
-#account-button:hover #menu-option{
-  display: block;
-}
 
 @layer utilities {
   .text-balance {
