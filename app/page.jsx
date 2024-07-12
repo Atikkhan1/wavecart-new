@@ -3,6 +3,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import ProductDesign from "./components/ProductDesign";
 import Categorybar from "./components/Categorybar";
 import Loading from "./loading";
+import Head from "next/head";
 
 
 export default function Home() {
@@ -24,9 +25,13 @@ export default function Home() {
 
   return (
     <div className="">
-      <Categorybar />
+      <Head>
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3651936152350906"
      crossorigin="anonymous"></script>
+
+      </Head>
+      <Categorybar />
+
       <img className="w-full" src="/Banner.jpg" alt="" />
       <Suspense fallback={<Loading/>}>
       <section className="text-gray-600 body-font">
