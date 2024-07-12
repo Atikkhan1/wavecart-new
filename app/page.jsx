@@ -25,7 +25,8 @@ export default function Home() {
   return (
     <div className="">
       <Categorybar />
-
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3651936152350906"
+     crossorigin="anonymous"></script>
       <img className="w-full" src="/Banner.jpg" alt="" />
       <Suspense fallback={<Loading/>}>
       <section className="text-gray-600 body-font">
