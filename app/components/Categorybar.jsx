@@ -22,7 +22,7 @@ const Categorybar = () => {
     <Link key={d.name} href={d.link} className='inline-block w-auto items-center px-2 pt-0.5 text-xs rounded-lg md:text-xl font-extrabold font-mono text-black '>
       <div className='flex w-full h-8 overflow-hidden justify-center items-end'>
       <Image src={d.img}
-    alt="/" width={'34'} height={'2'}  className=''/>
+    alt="/" width='34' height='2' />
       </div>
     <p className='flex  '>{d.name}</p>
     

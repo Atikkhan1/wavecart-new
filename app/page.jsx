@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
 
     const fetchData = async () => {
-        setloader(<div className="loader"></div>)
+        setloader(<Loading></Loading>)
         const response = await fetch("/api/getAllProducts");
         const jsonData = await response.json();
         setData(jsonData); 
