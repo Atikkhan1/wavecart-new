@@ -7,14 +7,16 @@ import Loading from "./loading";
 
 export default function Home() {
   const [data, setData] = useState([]); 
-
+  const [loader, setloader] = useState(); 
+  
   useEffect(() => {
 
     const fetchData = async () => {
+        setloader(<div className="loader"></div>)
         const response = await fetch("/api/getAllProducts");
         const jsonData = await response.json();
         setData(jsonData); 
-        
+        setloader('')
     };
 
     fetchData();
@@ -29,6 +31,7 @@ export default function Home() {
       <section className="text-gray-600 body-font">
         <div className="container mx-auto">
           <div className="flex flex-wrap max-md:gap-x m-4">
+            {loader}
             {data.map((pro) => (
               <ProductDesign
                 key={pro._id}

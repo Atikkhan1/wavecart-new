@@ -5,11 +5,13 @@ import { useRouter } from 'next/navigation'
 const login = () => {
     const router = useRouter()
     const [errormsg,setErrormsg] = useState('')
-
+    const [loading,setloading] = useState('Sign In')
+    
     let details = []
 
 
     const handleLogin = async() => {
+        setErrormsg(<div className='loader'></div>)
         const response = await fetch(`/api/auth/login`, {
           method: 'POST',
           headers: {
@@ -23,6 +25,7 @@ const login = () => {
         const jsonData = await response.json();
         setErrormsg(jsonData)
         if (jsonData == true){
+            setErrormsg(<div className='border-4 border-black rounded-full w-2 h-2 '></div>)
             router.push('/account')
         }
     }
@@ -40,7 +43,7 @@ const login = () => {
                     <div className="w-full flex-1 ">
                         <div className="flex flex-col items-center">
                             <button
-                                className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-green-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                                className="w-full max-w-xs border-gray-300 border-2 hover:bg-slate-100 rounded-lg py-3 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                                 <div className="bg-white p-2 rounded-full">
                                     <svg className="w-4" viewBox="0 0 533.5 544.3">
                                         <path
@@ -58,7 +61,7 @@ const login = () => {
                                     </svg>
                                 </div>
                                 <span className="ml-4">
-                                    Sign In with Google
+                                    Sign in with Google
                                 </span>
                             </button>
     
@@ -77,7 +80,7 @@ const login = () => {
                             <input onChange={(e)=>{details[0] = e.target.value }}
                                 className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                                 type="email" placeholder="Email" autoComplete='email'/>
-                            <input onChange={(e)=>{details[1] = e.target.value}}
+                            <input onChange={(e)=>{details[1] = e.target.value}} 
                                 className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                                 type="password" placeholder="Password" autoComplete='current-password'/>
                                     </form>
