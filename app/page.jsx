@@ -9,6 +9,7 @@ import Head from "next/head";
 export default function Home() {
   const [data, setData] = useState([]); 
   const [loader, setloader] = useState(); 
+  let random = Math.floor(Math.random() * 100)
   
   useEffect(() => {
 
@@ -33,12 +34,12 @@ export default function Home() {
       <Categorybar />
 
       <img className="w-full" src="/Banner.jpg" alt="" />
-      <Suspense fallback={<Loading/>}>
+      
       <section className="text-gray-600 body-font">
         <div className="container mx-auto">
           <div className="flex flex-wrap max-md:gap-x m-4">
             {loader}
-            {data.map((pro) => (
+            {data.slice(random,random+20).map((pro) => (
               <ProductDesign
                 key={pro._id}
                 id={pro._id}
@@ -51,7 +52,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      </Suspense>
     </div>
   );
 }
