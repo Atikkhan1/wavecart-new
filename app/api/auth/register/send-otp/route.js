@@ -6,10 +6,17 @@ export async function POST(req) {
   let res
 const transporter = nodemailer.createTransport({ 
   service:'gmail', 
+  host:'smtp.gmail.com',
+  port:465,
+  secure:false,
   auth: {
     user: 'wavecart.shop@gmail.com',
     pass: 'zhci lxwn ofil tyba',
   },
+  tls: {
+    rejectUnauthorized: false
+  }
+  
 });
 await transporter.sendMail({
     from: 'wavecart.shop@gmail.com', // sender address
