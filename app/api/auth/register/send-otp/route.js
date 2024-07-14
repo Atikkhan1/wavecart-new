@@ -3,8 +3,10 @@ export async function POST(req) {
   let param = await req.json()
   let email = param.email
   let otp = Math.floor(Math.random() * 9000 + 1000)
-  let res
-const transporter = nodemailer.createTransport({ 
+  // let res;
+
+ try{
+  const transporter = nodemailer.createTransport({ 
   service:'gmail', 
   host:'smtp.gmail.com',
   port:465,
@@ -28,9 +30,11 @@ await transporter.sendMail({
     if (error) {
       console.log(error)
     } else {
-      res = true
+      console.log("message sent to ", email)
     }
-  });
-
-  return new Response(JSON.stringify({otp:otp, res}))
+  })
+}catch(e){
+  console.log(e)
+}
+return new Response(JSON.stringify({otp:otp}))
 }
