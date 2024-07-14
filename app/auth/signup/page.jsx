@@ -56,6 +56,7 @@ const login = () => {
       }),
     });
     const getotp = await response.json();
+    console.log(getotp)
     setotp(getotp.otp)
     setErrormsg("otp send to you email id")
   };

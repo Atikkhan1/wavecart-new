@@ -1,3 +1,5 @@
+
+
 const nodemailer = require("nodemailer");
 export async function POST(req) {
   let param = await req.json()
@@ -5,12 +7,12 @@ export async function POST(req) {
   let otp = Math.floor(Math.random() * 9000 + 1000)
   // let res;
 
- try{
+
   const transporter = nodemailer.createTransport({ 
   service:'gmail', 
   host:'smtp.gmail.com',
   port:465,
-  secure:false,
+  secure:true,
   auth: {
     user: process.env.USER,
     pass: process.env.PASS
@@ -20,7 +22,10 @@ export async function POST(req) {
   }
   
 });
-await transporter.sendMail({
+
+await new Promise((resolve,reject)=>{
+
+  transporter.sendMail({
     from: 'wavecart.shop@gmail.com', // sender address
     to: email, // list of receivers
     subject: "wavecart verification code", // Subject line
@@ -29,12 +34,13 @@ await transporter.sendMail({
   }, function(error, info){
     if (error) {
       console.log(error)
+      reject(error)
     } else {
       console.log("message sent to ", email)
+      resolve(info)
     }
   })
-}catch(e){
-  console.log(e)
-}
-return new Response(JSON.stringify({otp:otp}))
+})
+
+return new Response(JSON.stringify({otp}))
 }
