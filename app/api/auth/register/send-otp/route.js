@@ -12,8 +12,8 @@ export async function POST(req) {
   port:465,
   secure:false,
   auth: {
-    user: 'wavecart.shop@gmail.com',
-    pass: 'zhci lxwn ofil tyba',
+    user: process.env.USER,
+    pass: process.env.PASS
   },
   tls: {
     rejectUnauthorized: false
