@@ -28,9 +28,9 @@ const login = () => {
           }),
         });
         const jsonData = await response.json();
-        storage.setItem(jsonData.data[0]._id)
         setErrormsg(jsonData.res)
         if (jsonData.res == true){
+            storage.setItem(jsonData.data[0]._id)
             setErrormsg(<Loading></Loading>)
             router.push('/account')
         }
