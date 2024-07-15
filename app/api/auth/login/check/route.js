@@ -1,4 +1,5 @@
 
+import { data } from "autoprefixer";
 import accounts from "/app/api/models/accountSchema";
 import mongoose from "mongoose";
 export async function POST(req) {
@@ -15,5 +16,5 @@ export async function POST(req) {
     } else{
         res = "email not found"
     }
-  return new Response(JSON.stringify(res))
+  return new Response(JSON.stringify({res:res,data:products}))
 }

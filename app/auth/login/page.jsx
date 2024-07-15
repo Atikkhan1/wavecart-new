@@ -4,13 +4,16 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Loading from '../../loading'
+import {useLocalStorage} from '../../useLocalStorage'
 const login = () => {
     const router = useRouter()
     const [errormsg,setErrormsg] = useState('')
     const [details,setdetails] = useState([])
     const [show,setshow] = useState('password')
- 
-
+    const storage = useLocalStorage('_id')
+    if (storage.getItem() != undefined){
+        router.push('/account')
+    }
 
     const handleLogin = async() => {
         setErrormsg(<Loading></Loading>)
@@ -25,11 +28,13 @@ const login = () => {
           }),
         });
         const jsonData = await response.json();
-        setErrormsg(jsonData)
-        if (jsonData == true){
+        storage.setItem(jsonData.data[0]._id)
+        setErrormsg(jsonData.res)
+        if (jsonData.res == true){
             setErrormsg(<Loading></Loading>)
             router.push('/account')
         }
+
     }
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -92,7 +97,7 @@ const login = () => {
                             </div>
                             </form>
                             
-                            <p className='flex mt-2 justify-center text-red-500'>{errormsg}</p>
+                            <div className='flex mt-2 justify-center text-red-500'>{errormsg}</div>
                             <button onClick={()=>{handleLogin()}}
                                 className="mt-2 tracking-wide font-semibold bg-green-400 text-white-500 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                 <svg className="w-6 h-6 -ml-2 mr-2" fill="none" stroke="currentColor" strokeWidth="2"

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { redirect, useRouter } from "next/navigation";
 import Loading from "../../loading";
-
+import {useLocalStorage} from '../../useLocalStorage'
 
 
 const login = () => {
@@ -21,7 +21,7 @@ const login = () => {
   const [display, setdisplay] = useState("hidden");
   const [display2, setdisplay2] = useState("");
   const [show, setshow] = useState("password");
-
+  let storage = useLocalStorage("_id")
   const saveTodb = async() =>{
     setErrormsg(<Loading></Loading>)
     const response = await fetch(`/api/auth/register/create-user`, {
@@ -38,6 +38,18 @@ const login = () => {
       });
       const getres = await response.json();
       if (getres == true){
+        const res= await fetch(`/api/auth/login/check`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: details.email,
+            password: details.password,
+          }),
+        });
+        const jsonData = await res.json();
+        storage.setItem(jsonData.data[0]._id)
         router.push('/account')
       }else{
         setErrormsg(getres)
@@ -56,7 +68,6 @@ const login = () => {
       }),
     });
     const getotp = await response.json();
-    console.log(getotp)
     setotp(getotp.otp)
     setErrormsg("otp send to you email id")
   };
