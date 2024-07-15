@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { useLocalStorage } from '../useLocalStorage';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  let router = useRouter()
   const [data, setData] = useState({});
   let storage = useLocalStorage("_id")
   const id = storage.getItem();
@@ -33,6 +35,10 @@ export default function Page() {
     fetchData();
   }, []);
 
+  const handleLogout = () =>{
+    storage.removeItem()
+    router.push('/auth/login')
+  }
   return (
     <div>
       {/* Display your data here */}
@@ -41,6 +47,8 @@ export default function Page() {
       <p>Name: {data.username}</p>
       <p>email: {data.email}</p>
       {/* Add other relevant data fields */}
+      <button onClick={()=>{handleLogout()}}>Logout</button>
+
     </div>
   );
 }
