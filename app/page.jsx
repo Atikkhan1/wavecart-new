@@ -9,7 +9,7 @@ import Head from "next/head";
 export default function Home() {
   const [data, setData] = useState([]); 
   const [loader, setloader] = useState(); 
-  let random = Math.floor(Math.random() * 100)
+  // let random = Math.floor(Math.random() * 100)
   
   useEffect(() => {
 
@@ -39,7 +39,7 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="flex flex-wrap max-md:gap-x m-4">
             {loader}
-            {data.slice(random,random+20).map((pro) => (
+            {data.map((pro) => (
               <ProductDesign
                 key={pro._id}
                 id={pro._id}
