@@ -3,12 +3,9 @@ import React from "react";
 const Footer = () => {
   return (
 
-      <footer className="body-font ">
+      <footer className="body-font mb-24">
         <div className="container px-5 py-4 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
           <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left ">
-
-
-
 
             <div className="w-full max-md:mx-12 flex h-12 text-black font-bold ">
               <img

@@ -16,7 +16,7 @@ const Categorybar = () => {
     
 
   return (
-    <div className={`flex w-full max-md:overflow-x-auto bg-gray-100 gap-3 p-1 shadow-inner shadow-gray-400`}>
+    <div className={`flex w-full max-md:overflow-x-auto bg-slate-50 gap-3 p-1  `}>
     {optionsData.map((d)=>{
     return (
     <Link key={d.name} href={d.link} className='inline-block w-auto items-center px-2 pt-0.5 text-xs rounded-lg md:text-xl font-extrabold font-mono text-black '>

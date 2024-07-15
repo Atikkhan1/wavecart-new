@@ -26,11 +26,7 @@ export default function Home() {
 
   return (
     <div className="">
-      <Head>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3651936152350906"
-     crossorigin="anonymous"></script>
 
-      </Head>
       <Categorybar />
 
       <img className="w-full" src="/Banner.jpg" alt="" />
