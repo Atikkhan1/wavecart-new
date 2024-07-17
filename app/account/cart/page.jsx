@@ -103,6 +103,7 @@ export default function page() {
     <div className="bg-slate-100  w-full">
       <div className="md:flex gap-x-20 w-full bg-white mt-6 ">
         <div className="mb-4">{loader}</div>
+        {console.log(product)}
         {product==''?"":
         product.map((p)=>{
             return(
