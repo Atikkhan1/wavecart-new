@@ -75,8 +75,7 @@ export default function page() {
     }
   
     
-  const Cartdesign = (param) => {
-    let p = param.who;
+  const Cartdesign = (p) => {
     return (
       <div className="flex w-full md:w-5/12 h-32  p-2">
         <img src={p.image} alt="" className="h-full w-24 border" />
@@ -88,7 +87,7 @@ export default function page() {
               <b className='ml-2 text-xl text-gray-400 line-through'>₹ {Math.floor(p.price * 1.7)}/-</b> 
               </p>
           <div className="flex mt-auto justify-end gap-2">
-            <button onClick={()=>{removeToCart(p._id)}} className="flex p-2 h-10 w-24 justify-center rounded-md hover:translate-y-1 bg-red-500 text-white">
+            <button onClick={()=>{removeToCart(p.id)}} className="flex p-2 h-10 w-24 justify-center rounded-md hover:translate-y-1 bg-red-500 text-white">
               Remove
             </button>
             <Link href={`/product/${p._id}`} className="flex p-2 h-10 w-24 justify-center rounded-md hover:translate-y-1 bg-green-500 text-white">
@@ -103,11 +102,10 @@ export default function page() {
     <div className="bg-slate-100  w-full">
       <div className="md:flex gap-x-20 w-full bg-white mt-6 ">
         <div className="mb-4">{loader}</div>
-        {console.log(product)}
         {product==''?"":
         product.map((p)=>{
             return(
-              <Cartdesign key={p._id} who={p}/>
+              <Cartdesign key={p._id} name={p.name} price={p.price} id={p._id} image={p.image}/>
             )
           })}
 
