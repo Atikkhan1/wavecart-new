@@ -1,9 +1,9 @@
 'use client'
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import ProductDesign from "./components/ProductDesign";
 import Categorybar from "./components/Categorybar";
 import Loading from "./loading";
-import Head from "next/head";
+
 
 
 export default function Home() {

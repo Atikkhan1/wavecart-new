@@ -8,14 +8,19 @@ import {useLocalStorage} from '../../useLocalStorage'
 const login = () => {
     const router = useRouter()
     const [errormsg,setErrormsg] = useState('')
-    const [details,setdetails] = useState([])
+    const [details,setdetails] = useState({email:"", password:""})
     const [show,setshow] = useState('password')
     const storage = useLocalStorage('_id')
-    if (storage.getItem() != undefined){
-        router.push('/account')
-    }
+
+    useState(()=>{
+
+        if (storage.getItem() != undefined){
+            router.push('/account')
+        }
+    },[])
 
     const handleLogin = async() => {
+
         setErrormsg(<Loading></Loading>)
         const response = await fetch(`/api/auth/login/check`, {
           method: 'POST',
@@ -23,8 +28,8 @@ const login = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: details[0],
-            password: details[1],
+            email: details.email,
+            password: details.password,
           }),
         });
         const jsonData = await response.json();
@@ -84,10 +89,10 @@ const login = () => {
                         <div className="mx-auto max-w-xs">
                         <form>
 
-                            <input onChange={(e)=>{details[0] = e.target.value }}
+                            <input onChange={(e)=>{details.email = e.target.value }}
                                 className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                                 type="email" placeholder="Email" autoComplete='email'/>
-                            <input onChange={(e)=>{details[1] = e.target.value}} 
+                            <input onChange={(e)=>{details.password = e.target.value}} 
                                 className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                                 type={show} placeholder="Password" autoComplete='current-password'/>
 
