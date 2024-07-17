@@ -43,7 +43,7 @@ export default function page() {
             }),
           }).then(async(res)=>{
           const products = await res.json();
-          ele.push(products);
+          ele.push(products[0]);
           setProduct(ele);
           setloader('')})
         }
