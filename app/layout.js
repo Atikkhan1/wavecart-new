@@ -1,7 +1,6 @@
 
 import "./globals.css";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 
 export const metadata = {
   title: "Wavecart - buy your dream product",
@@ -18,10 +17,10 @@ export default function RootLayout({ children }) {
     
 
     <Navbar></Navbar>
-      <div className="flex w-full" style={{ height: "88vh" }}>
+      <div className="flex w-full pb-6" style={{ height: "88vh" }}>
         <div className=" w-full z-1 overflow-y-scroll">
           {children}
-          <Footer></Footer>
+          
         </div>
       </div>
     </div>

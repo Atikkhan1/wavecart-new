@@ -59,7 +59,7 @@ export default function page() {
         }),
       });
       const jsonData = await response.json();
-      router.refresh()
+      router.push('/account')
     }else{
       router.push("/auth/login")
     }
