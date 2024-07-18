@@ -93,7 +93,7 @@ export default function page() {
             <button onClick={()=>{removeToCart(p.id)}} className="flex p-2 h-10 w-24 justify-center rounded-md hover:translate-y-1 bg-red-500 text-white">
               Remove
             </button>
-            <Link href={`/product/${p._id}`} className="flex p-2 h-10 w-24 justify-center rounded-md hover:translate-y-1 bg-green-500 text-white">
+            <Link href={`/product/${p.id}`} className="flex p-2 h-10 w-24 justify-center rounded-md hover:translate-y-1 bg-green-500 text-white">
               Order
             </Link>
           </div>
@@ -105,9 +105,10 @@ export default function page() {
     <div className="bg-slate-100 w-full">
       <div className="md:flex gap-x-20 w-full bg-white mt-6 ">
         <div className="mb-4">{loader}</div>
-        {console.log(product)}
+
         {product.flatMap((p)=>{
-         return ( <Cartdesign key={p._id} name={p.name} description={p.description} price={p.price} id={p._id} image={p.image}/>
+          console.log(p)
+         return ( <Cartdesign key={p.id} name={p.name} description={p.description} price={p.price} id={p._id} image={p.image}/>
         )})}
 
       </div>
