@@ -105,9 +105,8 @@ export default function page() {
     <div className="bg-slate-100 w-full">
       <div className="md:flex gap-x-20 w-full bg-white mt-6 ">
         <div className="mb-4">{loader}</div>
-        {product==''?"":
-        product.map((p)=>{
-          console.log(p)
+        {console.log(product)}
+        {product.flatMap((p)=>{
          return ( <Cartdesign key={p._id} name={p.name} description={p.description} price={p.price} id={p._id} image={p.image}/>
         )})}
 
