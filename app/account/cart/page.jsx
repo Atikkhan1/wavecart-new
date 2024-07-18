@@ -107,6 +107,7 @@ export default function page() {
         <div className="mb-4">{loader}</div>
         {product==''?"":
         product.map((p)=>{
+          console.log(p)
          return ( <Cartdesign key={p._id} name={p.name} description={p.description} price={p.price} id={p._id} image={p.image}/>
         )})}
 
