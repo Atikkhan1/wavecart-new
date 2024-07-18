@@ -1,28 +1,27 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import ProductDesign from "./components/ProductDesign";
 import Categorybar from "./components/Categorybar";
 import Loading from "./loading";
-
+import Head from "next/head";
 
 
 export default function Home() {
-  const [data, setData] = useState([]); 
-  const [loader, setloader] = useState(); 
+  const [data, setData] = useState([]);
+  const [loader, setloader] = useState();
   // let random = Math.floor(Math.random() * 100)
-  
-  useEffect(() => {
 
+  useEffect(() => {
     const fetchData = async () => {
-        setloader(<Loading></Loading>)
-        const response = await fetch("/api/getAllProducts");
-        const jsonData = await response.json();
-        setData(jsonData); 
-        setloader('')
+      setloader(<Loading></Loading>);
+      const response = await fetch("/api/getAllProducts");
+      const jsonData = await response.json();
+      setData(jsonData);
+      setloader("");
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   return (
     <div className="">
@@ -30,7 +29,7 @@ export default function Home() {
       <Categorybar />
 
       <img className="w-full" src="/Banner.jpg" alt="" />
-      
+
       <section className="text-gray-600 body-font">
         <div className="container mx-auto">
           <div className="flex flex-wrap max-md:gap-x m-4">
@@ -48,6 +47,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
     </div>
   );
 }

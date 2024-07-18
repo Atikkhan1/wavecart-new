@@ -77,16 +77,19 @@ export default function page() {
     
   const Cartdesign = (p) => {
     return (
-      <div className="flex w-full md:w-5/12 h-32  p-2">
-        <img src={p.image} alt="" className="h-full w-24 border" />
+      <div className="flex mx-auto w-full md:w-3/12 h-32 p-2">
+        <img src={p.image} alt="" className="h-full rounded-md border" />
         <div className="block h-full w-2/3 ml-auto ">
-          <p className=" flex h-6 w-full  overflow-y-clip ">
+          <p className="w-full h-5 overflow-hidden text-md font-bold font-sans">
             {p.name}
           </p>
-          <p className="title-font font-medium text-xl my-2 text-green-400">₹ {Math.floor(p.price * 1.5)} /- 
+          <p className="w-full text-sm h-5 italic overflow-hidden text-gray-500">
+            {p.description}
+          </p>
+          <p className="flex title-font justify-end mr-4 font-medium text-xl text-green-400">₹ {Math.floor(p.price * 1.5)} /- 
               <b className='ml-2 text-xl text-gray-400 line-through'>₹ {Math.floor(p.price * 1.7)}/-</b> 
               </p>
-          <div className="flex mt-auto justify-end gap-2">
+          <div className="flex justify-end gap-2">
             <button onClick={()=>{removeToCart(p.id)}} className="flex p-2 h-10 w-24 justify-center rounded-md hover:translate-y-1 bg-red-500 text-white">
               Remove
             </button>
@@ -99,15 +102,13 @@ export default function page() {
     );
   };
   return (
-    <div className="bg-slate-100  w-full">
+    <div className="bg-slate-100 w-full">
       <div className="md:flex gap-x-20 w-full bg-white mt-6 ">
         <div className="mb-4">{loader}</div>
         {product==''?"":
         product.map((p)=>{
-            return(
-              <Cartdesign key={p._id} name={p.name} price={p.price} id={p._id} image={p.image}/>
-            )
-          })}
+         return ( <Cartdesign key={p._id} name={p.name} description={p.description} price={p.price} id={p._id} image={p.image}/>
+        )})}
 
       </div>
     </div>
