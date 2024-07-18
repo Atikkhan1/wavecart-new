@@ -25,7 +25,7 @@ export default function page() {
           }),
         });
         const jsonData = await response.json();
-        
+        console.log(response)
         let inCartArray = jsonData.productData.inCart;
         if(inCartArray==''){
           setloader(<div className="flex justify-center text-3xl italic text-gray-400">Oh! No product in your Cart</div>)
@@ -44,6 +44,7 @@ export default function page() {
           }).then(async(res)=>{
           const products = await res.json();
           ele.push(products[0]);
+          
           setProduct(ele);
           setloader('')})
         }
@@ -59,7 +60,6 @@ export default function page() {
 
 
   const removeToCart = async(slug) =>{
-      const ele = [];
       const response = await fetch(`/api/account/cart/remove`, {
         method: 'POST',
         headers: {
@@ -107,8 +107,7 @@ export default function page() {
         <div className="mb-4">{loader}</div>
 
         {product.flatMap((p)=>{
-          console.log(p)
-         return ( <Cartdesign key={p.id} name={p.name} description={p.description} price={p.price} id={p._id} image={p.image}/>
+         return ( <Cartdesign key={p._id} name={p.name} description={p.description} price={p.price} id={p._id} image={p.image}/>
         )})}
 
       </div>
