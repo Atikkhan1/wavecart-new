@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.4.6",
+    "@nextui-org/tabs": "^2.0.35",
     "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
     "fs": "^0.0.1-security",
