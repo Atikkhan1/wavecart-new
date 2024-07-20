@@ -27,11 +27,13 @@ export default function page() {
         const jsonData = await response.json();
         console.log(response)
         let inCartArray = jsonData.productData.inCart;
-        if(inCartArray==''){
+        console.log(inCartArray)
+        if(inCartArray.length==0){
           setloader(<div className="flex justify-center text-3xl italic text-gray-400">Oh! No product in your Cart</div>)
-        }
+        }else{
           setProduct(inCartArray);
           setloader('')
+        }
         }else {
         router.push("/account/login");
       }
