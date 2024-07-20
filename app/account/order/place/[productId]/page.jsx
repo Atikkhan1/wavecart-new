@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Loading from "/app/loading";
 
 
-export default function OrderPlacePage({params}) {
+export default function page({params}) {
   const productId = params.productId  
   let storage = useLocalStorage("_id")
   let router = useRouter()
@@ -80,8 +80,7 @@ export default function OrderPlacePage({params}) {
 
         </div>
         <p className="leading-relaxed mb-4 h-36 overflow-scroll border p-2" dangerouslySetInnerHTML={{ __html: product.description }}></p>
-        <div className={ product.category == "tshirts"?"flex":"hidden" + " border-t border-gray-200 py-2 "}>
-          {console.log(product.category)}
+        <div className={ (product.category == "tshirts" ?"flex":"hidden") + " border-t border-gray-200 py-2 "}>
           <span className="text-gray-500 ">Size</span>
           <select className={"ml-auto text-gray-900 border-green-500 w-14 indent-1 border rounded-md " }>
             <option value="" className="justify-center">S</option>
