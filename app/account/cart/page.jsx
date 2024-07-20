@@ -30,25 +30,9 @@ export default function page() {
         if(inCartArray==''){
           setloader(<div className="flex justify-center text-3xl italic text-gray-400">Oh! No product in your Cart</div>)
         }
-        const ele = [];
-        for (let i = 0; i < inCartArray.length; i++) {
-          await fetch(`/api/getProducts`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              key: "_id",
-              value: inCartArray[i],
-            }),
-          }).then(async(res)=>{
-          const products = await res.json();
-          ele.push(products[0]);
-          
-          setProduct(ele);
-          setloader('')})
-        }
-      } else {
+          setProduct(inCartArray);
+          setloader('')
+        }else {
         router.push("/account/login");
       }
       
@@ -106,7 +90,7 @@ export default function page() {
       <div className="md:flex gap-x-20 w-full bg-white mt-6 ">
         <div className="mb-4">{loader}</div>
 
-        {product.flatMap((p)=>{
+        {product.map((p)=>{
          return ( <Cartdesign key={p._id} name={p.name} description={p.description} price={p.price} id={p._id} image={p.image}/>
         )})}
 

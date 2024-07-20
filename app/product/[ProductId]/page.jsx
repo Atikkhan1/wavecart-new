@@ -39,7 +39,7 @@ export default function ProductPage ({params}) {
         },
         body: JSON.stringify({
           accountId:storage.getItem(),
-          productId:slug
+          productId:Data
         }),
       });
       const jsonData = await response.json();
