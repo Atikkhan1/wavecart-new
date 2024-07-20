@@ -1,10 +1,10 @@
 'use client'
-import Link from "next/link";
+
 import React, { useEffect, useState } from "react";
 import {useLocalStorage} from '/app/useLocalStorage'
 import { useRouter } from "next/navigation";
 import Loading from "/app/loading";
-import ProductDesign from "../../../../components/ProductDesign";
+
 
 export default function OrderPlacePage({params}) {
   const productId = params.productId  
