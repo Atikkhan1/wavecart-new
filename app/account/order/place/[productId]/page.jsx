@@ -18,7 +18,7 @@ export default function page({params}) {
     user:"",
     name:"",
     contact:"",
-    size:"",
+    size:"none",
     quantity:"",
     orginal_price:"",
     order_price:"",
@@ -49,7 +49,7 @@ export default function page({params}) {
           }),
         });
         const jsonproduct = await response.json();
-        console.log(jsonproduct[0])
+
           setProduct(jsonproduct[0]);
           setloader('')
         }
@@ -60,7 +60,9 @@ export default function page({params}) {
     fetchProduct();
   }, []);
 
-
+  const handleSubmit =(event)=>[
+    event.preventDefault()
+  ]
   return (
     <>
     {loader}
@@ -82,12 +84,12 @@ export default function page({params}) {
         <p className="leading-relaxed mb-4 h-36 overflow-scroll border p-2" dangerouslySetInnerHTML={{ __html: product.description }}></p>
         <div className={ (product.category == "tshirts" ?"flex":"hidden") + " border-t border-gray-200 py-2 "}>
           <span className="text-gray-500 ">Size</span>
-          <select className={"ml-auto text-gray-900 border-green-500 w-14 indent-1 border rounded-md " }>
-            <option value="" className="justify-center">S</option>
-            <option value="" className="justify-center">M</option>
-            <option value="" className="justify-center">L</option>
-            <option value="" className="justify-center">XL</option>
-            <option value="" className="justify-center">XXL</option>
+          <select onChange={(e)=>{orderDetail.size = e.target.value}} className={"ml-auto text-gray-900 border-green-500 w-14 indent-1 border rounded-md " }>
+            <option value="S" className="justify-center">S</option>
+            <option value="M" className="justify-center">M</option>
+            <option value="L" className="justify-center">L</option>
+            <option value="XL" className="justify-center">XL</option>
+            <option value="XXl" className="justify-center">XXL</option>
           </select>
         </div>
         <div className="flex border-t border-b mb-6 border-gray-200 py-2">
@@ -98,14 +100,14 @@ export default function page({params}) {
           <span className="title-font font-medium text-2xl text-gray-900"> <p className="title-font font-medium text-3xl my-2 text-green-400">₹ {Math.floor(product.price * 1.5)} /- 
               <b className='ml-2 text-xl text-gray-400 line-through'>₹ {Math.floor(product.price * 1.7)}/-</b> </p>
               </span>
-          <button className="flex ml-auto text-white h-10 bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-300 rounded">Button</button>
+          <button onClick={()=>{console.log(orderDetail)}} className="flex ml-auto text-white h-10 bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-300 rounded">Button</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="adress form" className="md:w-2/5 m-auto">
+<section id="adress form" className="md:w-2/5 m-auto mb-40">
         <div className=" mb-4 mx-auto w-11/12">
           <a className="block text-green-500 border-b-2 w-full border-green-500 py-2 text-lg px-1 ">Address</a>
 
@@ -145,7 +147,7 @@ export default function page({params}) {
                 <label htmlFor="pincode" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 Pin code</label>
             </div>
-            <button type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit</button>
+            <button type="submit" onSubmit={(e)=>{handleSubmit()}} className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit</button>
           </form>
 
         </div>
