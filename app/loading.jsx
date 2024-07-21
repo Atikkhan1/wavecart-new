@@ -2,11 +2,17 @@
 export default function Loading(p) {
 
   return (
-    <div className={"flex h-full mx-auto" + p.className}>
-      
-<div className="loader">
-  <style jsx>
+    <div className={"containerBox " + p.className}>
+        <style jsx>
     {`
+    .containerBox {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+      }
+        
     .loader {
       margin: auto;
       border: 5px solid #EAF0F6;
@@ -24,6 +30,8 @@ export default function Loading(p) {
         
         `}
   </style>
+<div className="loader">
+
 </div>
         </div>
   )
