@@ -19,11 +19,14 @@ export default function page({params}) {
   const [loader, setloader] = useState(<Loading></Loading>);
   const [product, setProduct] = useState([]);
   const [orderDetail, setorderDetail] = useState({
-    user:"",
+    user:{},
     name:"",
     contact:"",
     size:"none",
     quantity:"1",
+    total_price:"",
+    payment_method:"cash on delivary",
+    delivery_charges:50,
     orginal_price:"",
     order_price:"",
     order_date:"",
@@ -53,9 +56,24 @@ export default function page({params}) {
           }),
         });
         const jsonproduct = await response.json();
+        setProduct(jsonproduct[0]);
+        orderDetail.orginal_price = jsonproduct[0].price
+        orderDetail.order_price = Math.floor(jsonproduct[0].price * 1.5)
+        orderDetail.order_date = Date()
 
-          setProduct(jsonproduct[0]);
-          setloader('')
+
+        setloader('')
+        const res = await fetch(`/api/account/getData`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id:id
+          }),
+        });
+        const jsonUser = await res.json();
+            orderDetail.user = jsonUser
         }
         else {
         router.push("/account/login");
@@ -109,7 +127,7 @@ export default function page({params}) {
             <option value="M" className="justify-center">M</option>
             <option value="L" className="justify-center">L</option>
             <option value="XL" className="justify-center">XL</option>
-            <option value="XXl" className="justify-center">XXL</option>
+            <option value="XXL" className="justify-center">XXL</option>
           </select>
         </div>
         <div className="flex border-t border-b mb-6 border-gray-200 py-2">
@@ -145,40 +163,86 @@ export default function page({params}) {
                 Contact Number</label>
             </div>
             <div className="relative z-0 w-full mb-5 group">
-                <input  onChange={(e)=>{orderDetail.house_no = e.target.value}} type="text" autoComplete="shipping" name="house_no" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
+                <input  onChange={(e)=>{orderDetail.address.house_no = e.target.value}} type="text" autoComplete="shipping" name="house_no" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
                 <label htmlFor="house_no" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 House No/Building name</label>
             </div>
             <div className="relative z-0 w-full mb-5 group">
-                <input onChange={(e)=>{orderDetail.area = e.target.value}}  type="text" autoComplete="shipping" name="street" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
+                <input onChange={(e)=>{orderDetail.address.area = e.target.value}}  type="text" autoComplete="shipping" name="street" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
                 <label htmlFor="street" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 Street Address/Area</label>
             </div>
             <div className="relative z-0 w-full mb-5 group">
-                <input  onChange={(e)=>{orderDetail.nearby = e.target.value}}  type="text" autoComplete="shipping" name="nearby" id="nearby" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" />
+                <input  onChange={(e)=>{orderDetail.address.nearby = e.target.value}}  type="text" autoComplete="shipping" name="nearby" id="nearby" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" />
                 <label htmlFor="nearby" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 Nearby address/Road (optional)</label>
             </div>
             <div className="relative z-0 w-full mb-5 group">
-                <input onChange={(e)=>{orderDetail.city = e.target.value}}  type="text" autoComplete="shipping" name="city" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
+                <input onChange={(e)=>{orderDetail.address.city = e.target.value}} type="text" autoComplete="shipping" name="city" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
                 <label htmlFor="city" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 Village/City</label>
             </div>
             <div className="relative z-0 w-full mb-5 group">
-                <input  onChange={(e)=>{orderDetail.pincode = e.target.value}} pattern="[0-9]" type="number"  autoComplete="shipping" name="pincode" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
+                <input  onChange={(e)=>{orderDetail.address.pincode = e.target.value}}  pattern="[0-6]{6}" type="number"  autoComplete="shipping" name="pincode" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
                 <label htmlFor="pincode" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 Pin code</label>
             </div>
             <div className="relative z-0 w-full mb-5 group">
-                <input type="text" autoComplete="shipping" name="state" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
+                <input type="text" onChange={(e)=>{orderDetail.address.state = e.target.value}} autoComplete="shipping" name="state" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder="" required />
                 <label htmlFor="state" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 State </label>
             </div>
-            <button type="submit"  className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit</button>
+            <button type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit</button>
           </form>
 
         </div>
 </section>
+</TabPanel>
+
+<TabPanel value="3">
+
+<div className="flex mb-4">
+  <a className="flex-grow text-green-500 border-b-2 border-green-500  text-lg px-1">
+    Reciept
+  </a>
+</div>
+<div className="flex border-t border-b border-gray-200 py-2">
+  <span className="text-gray-500">Price</span>
+  <p className="flex ml-auto text-gray-900 w-14 rounded-md justify-center" >
+  ₹ {orderDetail.order_price}
+  </p>
+</div>
+<div className="flex border-t border-b border-gray-200 py-2">
+  <span className="text-gray-500">Delivery charges</span>
+  <p className="flex ml-auto text-gray-900 w-14 rounded-md justify-center" >
+  ₹ {orderDetail.delivery_charges}
+  </p>
+</div>
+
+<div className="flex border-b border-gray-500 py-2">
+  <span className="text-gray-500">Quantity</span>
+  <p className="flex ml-auto text-gray-900 w-14 rounded-md justify-center" >
+    {orderDetail.quantity}
+  </p>
+</div>
+<div className="flex border-b border-gray-500 py-2">
+  <span className="text-gray-500">Total</span>
+  <p className="flex ml-auto text-gray-900 w-14 rounded-md justify-center" >
+  ₹ {(orderDetail.order_price * orderDetail.quantity) + orderDetail.delivery_charges }
+  </p>
+</div>
+
+
+<div className="flex mb-4">
+  <a className="flex-grow mt-10 text-green-500 border-b-2 border-green-500  text-lg px-1">
+    Payment Method
+  </a>
+</div>
+
+<div className="flex w-3/4 h-16 m-auto border rounded-md items-center p-2">
+  <input onChange={(e)=>{orderDetail.payment_method == e.target.defaultValue; console.log(orderDetail.payment_method)}} type="checkbox"  name="cash" checked className="text-black size-5 mr-2" value={'cash on delivary'} />
+  <label htmlFor="cash">cash on delivary</label>
+</div>
 </TabPanel>
 
 </TabContext>
@@ -186,3 +250,6 @@ export default function page({params}) {
 </>
   )
 }
+
+
+

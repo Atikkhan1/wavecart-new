@@ -1,4 +1,4 @@
-product = "hello"
+product = Date()
 
-console.log(product == ["hello" && "hi"]?"yes":"no")
+console.log(product)
 
