@@ -16,14 +16,18 @@ export default function page({params}) {
   let router = useRouter()
   let id = storage.getItem();
 
+
+  
+
   const [loader, setloader] = useState(<Loading></Loading>);
   const [product, setProduct] = useState([]);
   const [orderDetail, setorderDetail] = useState({
     user:{},
-    name:"",
+    link:"",
     contact:"",
     size:"none",
     quantity:"1",
+    status:"pending",
     total_price:"",
     payment_method:"cash on delivary",
     delivery_charges:50,
@@ -57,6 +61,8 @@ export default function page({params}) {
         });
         const jsonproduct = await response.json();
         setProduct(jsonproduct[0]);
+        orderDetail.link = jsonproduct[0].link
+        orderDetail.product = jsonproduct[0]
         orderDetail.orginal_price = jsonproduct[0].price
         orderDetail.order_price = Math.floor(jsonproduct[0].price * 1.5)
         orderDetail.order_date = Date()
@@ -76,7 +82,7 @@ export default function page({params}) {
             orderDetail.user = jsonUser
         }
         else {
-        router.push("/account/login");
+        router.push("/auth/login");
       }
     };
     fetchProduct();
@@ -90,9 +96,24 @@ export default function page({params}) {
   const handleSubmit =(e)=>{
     e.preventDefault()
     settabValue('3')
-    console.log(orderDetail)
+    
   }
   
+
+  const placeOrder = async()=>{
+    orderDetail.total_price = (orderDetail.order_price * orderDetail.quantity) + orderDetail.delivery_charges
+    const response = await fetch(`/api/account/order/placeOrder`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data:orderDetail
+      }),
+    });
+    const jsonproduct = await response.json();
+    router.push('/account')
+  }
   return (
     <>
     {loader}
@@ -239,10 +260,12 @@ export default function page({params}) {
   </a>
 </div>
 
-<div className="flex w-3/4 h-16 m-auto border rounded-md items-center p-2">
-  <input onChange={(e)=>{orderDetail.payment_method == e.target.defaultValue; console.log(orderDetail.payment_method)}} type="checkbox"  name="cash" checked className="text-black size-5 mr-2" value={'cash on delivary'} />
-  <label htmlFor="cash">cash on delivary</label>
+<div className="flex shadow-md h-16 m-auto border rounded-md items-center p-2">
+  <input className=" size-6 mx-3 " onChange={(e)=>{orderDetail.payment_method == e.target.defaultValue; console.log(orderDetail.payment_method)}} type="radio"  name="cash" checked  />
+  <label htmlFor="cash" className="text-xl font-semibold text-gray-600">cash on delivary</label>
 </div>
+
+<button onClick={()=>{placeOrder()}} className="text-white mt-24 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Place Order</button>
 </TabPanel>
 
 </TabContext>
