@@ -24,3 +24,14 @@ body {
     text-wrap: balance;
   }
 }
+.scroll-element {
+  animation: primary 7s linear infinite;
+}
+@keyframes primary {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
