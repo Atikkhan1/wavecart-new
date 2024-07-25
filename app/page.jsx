@@ -5,6 +5,7 @@ import Categorybar from "./components/Categorybar";
 import Loading from "./loading";
 import Head from "next/head";
 import Link from "next/link";
+import { Alert, Button, Snackbar } from "@mui/material";
 
 
 export default function Home() {
@@ -31,11 +32,14 @@ export default function Home() {
         
       <Categorybar /> 
 
-      <div className="flex w-full h-10 max-md:overflow-hidden items-center bg-green-300  p-1 ">
+      <div onClick={()=>{}} className="flex w-full h-10 max-md:overflow-hidden items-center bg-green-300  p-1 ">
         <span className="flex scroll-element italic whitespace-nowrap">❤️ Sale is going on !!! , what are you waiting for ? Buy at lowest price Now! 👍</span> 
       </div>
-
-
+        
+      <Alert severity="success" className="w-11/12 mx-auto mt-2 font-bold" >
+        100% free delivary on your first order
+      </Alert>
+      <Snackbar open message="Thanks for ordering" />
       <div className="flex h-40 w-full mx-0 my-auto overflow-x-scroll scroll-smooth "> 
         <img id="page-1" className="block justify-center items-center w-full h-full p-2" src="https://static.vecteezy.com/system/resources/previews/002/006/775/non_2x/paper-art-shopping-online-on-smartphone-and-new-buy-sale-promotion-backgroud-for-banner-market-ecommerce-free-vector.jpg" alt="" />
         <img id="page-2" className="block justify-center items-center w-full h-full p-2" src="/watch-banner.png" alt="" />
@@ -60,7 +64,7 @@ export default function Home() {
               name={pro.name.slice(0, 30) + "..."}
               image={pro.image}
               price={pro.price}
-              category={pro.category}
+              category={pro.subcategory}
               />
             ))}
           </div>

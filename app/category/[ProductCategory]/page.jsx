@@ -29,8 +29,25 @@ const ProductCategorySlug = ({params}) => {
       });
       const jsonData = await response.json();
       
-      setData(jsonData)
-      setloader('')
+      if(jsonData.length == 0){
+        const res = await fetch(`/api/getProducts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            key: 'subcategory',
+            value: slug,
+          }),
+        });
+        const jsonSubData = await res.json();
+        setData(jsonSubData)
+        setloader('')
+      }else{
+        
+        setData(jsonData)
+        setloader('')
+      }
       
     };
 
@@ -51,7 +68,7 @@ const ProductCategorySlug = ({params}) => {
                 <ProductDesign key={pro._id} id={pro._id} name={pro.name.slice(0,30)+'...'} 
                 image={pro.image} 
                 price={pro.price}
-                category={pro.category}
+                category={pro.subcategory}
                 />)})}
             
   

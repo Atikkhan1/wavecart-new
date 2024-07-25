@@ -2,6 +2,7 @@
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Head from "next/head";
+import SmallStatus from './components/SmallStatus';
 export const metadata = {
   title: "Wavecart - buy your dream product",
   description: "Wavecart is online shoping app that under development , so don't worry we are trying our best to add your dream products ",
