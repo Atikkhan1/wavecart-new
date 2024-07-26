@@ -57,8 +57,7 @@ const ProductCategorySlug = ({params}) => {
     
     return (
       <div>
-        <Categorybar></Categorybar>
-            
+        <Categorybar></Categorybar>  
         <section className="text-gray-600 body-font ">
           <div className="container mx-auto ">
             <div className="flex flex-wrap  max-md:gap-x m-4">
@@ -68,12 +67,9 @@ const ProductCategorySlug = ({params}) => {
                 <ProductDesign key={pro._id} id={pro._id} name={pro.name.slice(0,30)+'...'} 
                 image={pro.image} 
                 price={pro.price}
-                category={pro.subcategory}
+                subcategory={pro.subcategory}
+                margin={pro.margin}
                 />)})}
-            
-  
-  
-  
             </div>
           </div>
         </section>

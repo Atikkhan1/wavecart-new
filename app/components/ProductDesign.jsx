@@ -13,12 +13,12 @@ const ProductDesign = (param) => {
           </Link>
           <div className="mt-4">
             <h3 className=" text-gray-500 text-xs tracking-widest title-font font-bold mb-1">
-              {param.category}
+              {param.subcategory}
             </h3>
             <h2 className=" title-font text-lg font-medium">
               {param.name}
             </h2>
-            <p className="flex mt-1 text-green-600">₹{Math.floor(param.price * 1.4)}/- <b className='ml-2 text-gray-400 line-through'>₹{Math.floor(param.price * 2)}</b></p>
+            <p className="flex mt-1 text-green-600">₹{Math.floor(param.price * param.margin)}/- <b className='ml-2 text-gray-400 line-through'>₹{Math.floor(param.price * (param.margin+0.3))}</b></p>
           </div>
         </div>
   )

@@ -141,7 +141,7 @@ export default function page({params}) {
 
         </div>
         <p className="leading-relaxed mb-4 h-36 overflow-scroll border p-2" dangerouslySetInnerHTML={{ __html: product.description }}></p>
-        <div className={ (product.category == "tshirts" ?"flex":"hidden") + " border-t border-gray-200 py-2 "}>
+        <div className={ (product.category == "clothes"?"flex":"hidden") + " border-t border-gray-200 py-2 "}>
           <span className="text-gray-500 ">Size</span>
           <select onChange={(e)=>{orderDetail.size = e.target.value}} className={"ml-auto text-gray-900 border-green-500 w-14 indent-1 border rounded-md " }>
             <option value="S" className="justify-center">S</option>

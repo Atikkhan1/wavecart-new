@@ -3,9 +3,7 @@ import React, { useState, useEffect } from "react";
 import ProductDesign from "./components/ProductDesign";
 import Categorybar from "./components/Categorybar";
 import Loading from "./loading";
-import Head from "next/head";
-import Link from "next/link";
-import { Alert, Button, Snackbar } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 
 
 export default function Home() {
@@ -39,7 +37,7 @@ export default function Home() {
       <Alert severity="success" className="w-11/12 mx-auto mt-2 font-bold" >
         100% free delivary on your first order
       </Alert>
-      <Snackbar open message="Thanks for ordering" />
+      
       <div className="flex h-40 w-full mx-0 my-auto overflow-x-scroll scroll-smooth "> 
         <img id="page-1" className="block justify-center items-center w-full h-full p-2" src="https://static.vecteezy.com/system/resources/previews/002/006/775/non_2x/paper-art-shopping-online-on-smartphone-and-new-buy-sale-promotion-backgroud-for-banner-market-ecommerce-free-vector.jpg" alt="" />
         <img id="page-2" className="block justify-center items-center w-full h-full p-2" src="/watch-banner.png" alt="" />
@@ -64,14 +62,15 @@ export default function Home() {
               name={pro.name.slice(0, 30) + "..."}
               image={pro.image}
               price={pro.price}
-              category={pro.subcategory}
+              subcategory={pro.subcategory}
+              margin={pro.margin}
               />
             ))}
           </div>
         </div>
       </section>
-      <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+    
     </div>
-              </div>
+  </div>
   );
 }
